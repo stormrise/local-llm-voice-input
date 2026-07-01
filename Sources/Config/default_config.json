@@ -1,0 +1,36 @@
+{
+    "configVersion": 2,
+    "onboarding": {
+        "hasCompletedSetup": false
+    },
+    "vad": {
+        "silenceThreshold": 0.05,
+        "silenceDurationSeconds": 4.0,
+        "checkIntervalSeconds": 0.3,
+        "windowSamplesForRMS": 4800
+    },
+    "partialTranscription": {
+        "enabled": true,
+        "intervalSeconds": 0.5,
+        "minSamplesForPartial": 8000,
+        "maxSamplesCapped": 320000
+    },
+    "recording": {
+        "sampleRate": 16000,
+        "overlayOffsetFromCursorY": 40,
+        "overlayWidth": 380,
+        "overlayHeight": 44
+    },
+    "textInjection": {
+        "clipboardClearDelayMs": 20,
+        "clipboardSetDelayMs": 50,
+        "pasteWaitDelayMs": 400,
+        "modifierReleaseTimeoutSeconds": 2.0
+    },
+    "model": {
+        "defaultTemperature": 0.0,
+        "defaultMaxTokens": 4096,
+        "warmupDurationSeconds": 8.0,
+        "warmupTemperature": 1.0
+    }
+}

@@ -1,0 +1,31 @@
+# SwiftPM build output
+.build/
+.swiftpm/
+
+# macOS files
+.DS_Store
+*.swp
+*.swo
+
+# IDE
+*.xcodeproj/
+*.xcworkspace/
+.cursor/
+.cortexkit/
+.idea/
+
+# CodeGraph index
+.codegraph/
+
+# Xcode build artifacts
+.xcbuild/
+
+# App bundles (build script output)
+*.app
+
+# Crash reports
+*.crash
+
+# Debug files
+debug.log
+debug_recordings/
