@@ -1,54 +1,123 @@
-# 🎙️ LocalVoice 本地语音 — Local LLM Voice Input for macOS
+# LocalVoice 本地语音 | macOS Voice Dictation for Offline Speech-to-Text
 
-**LocalVoice 本地语音** is a **privacy-first, offline voice input app** for macOS that runs **100% locally on Apple Silicon** using **MLX + Qwen3-ASR**. No cloud, no data leaving your Mac.
+LocalVoice is the **Mac dictation app that feels built in, not bolted on**. Press a hotkey, speak naturally, and keep working while your words appear in the active app.
+
+Built for **Apple Silicon**, it runs fully on-device with **MLX + Qwen3-ASR** so you get **offline speech-to-text**, **Chinese and English dictation**, and **private local ASR** without sending audio to the cloud.
+
+If you want a **menu bar voice input tool for Mac** that is quick to launch, private by default, and good enough for daily use, LocalVoice is made for that job.
+
+[中文说明](README.zh-CN.md)
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-[![macOS](https://img.shields.io/badge/macOS-14+-brightgreen)](https://developer.apple.com/macos)
-[![Platform](https://img.shields.io/badge/Apple%20Silicon-M1%2B-orange)](https://www.apple.com/mac/)
+[![macOS](https://img.shields.io/badge/macOS-26%2B-brightgreen)](https://developer.apple.com/macos)
+[![Apple Silicon](https://img.shields.io/badge/Apple%20Silicon-M1%2B-orange)](https://www.apple.com/mac/)
 [![MLX](https://img.shields.io/badge/MLX-Qwen3--ASR-blueviolet)](https://github.com/ml-explore/mlx)
+[![Language](https://img.shields.io/badge/English-%E4%B8%AD%E6%96%87-lightgrey)](README.zh-CN.md)
 
----
+<img src="Sources/Assets.xcassets/AppIcon.appiconset/icon_512x512.png" width="128" alt="LocalVoice app icon for macOS offline speech-to-text and voice dictation">
 
-## ✨ Features
+## Table of Contents
 
-- **🤖 Local MLX Inference** — Qwen3-ASR 0.6B (快速) or 1.7B (推荐) runs natively on Apple Silicon via MLX (0.6B: 6-bit quantized, 1.7B: 5-bit quantized)
-- **🔒 100% Offline & Private** — Zero network calls during transcription. Your voice never leaves your Mac.
-- **🎤 Push-to-Talk** — Hold Fn/Globe key (or custom hotkey) → speak → release → text appears
-- **🌐 Bilingual** — Seamless Chinese + English mixed-language recognition
-- **📝 Universal Text Injection** — AXUIElement for native apps + clipboard fallback for Electron/WebView apps
-- **✍️ AI Text Rewriting** — Smart rewriting of transcribed text using local LLM
-- **⚡ Fast** — 6-12× realtime on M-series chips
-- **📦 Dual-Model, Multi-Source** — Choose 0.6B (~860MB) or 1.7B (~1.8GB); download from HuggingFace, HF Mirror, or ModelScope
-- **🌍 Localized UI** — English + 中文 (中文) interface
-- **🔄 Login Item Ready** — Auto-start on boot
+- [Overview](#overview)
+- [Highlights](#highlights)
+- [Support the Project](#support-the-project)
+- [Install](#install)
+- [First Run](#first-run)
+- [Configuration](#configuration)
+- [FAQ](#faq)
+- [Development](#development)
+- [Project Layout](#project-layout)
+- [License](#license)
 
-## 🖥️ Screenshots
+## Overview
 
-<img src="Sources/Assets.xcassets/AppIcon.appiconset/icon_256x256.png" width="128" alt="LocalVoice Icon">
+LocalVoice turns your Mac into a lightweight dictation tool that feels built into the system:
 
-*Welcome / Permissions / Settings / Recording*
+- Hold a hotkey, speak naturally, release, and the text appears in the focused app
+- Transcribe Chinese, English, or mixed-language speech locally on device
+- Choose Qwen3-ASR 0.6B for speed or 1.7B for higher accuracy
+- Use native text injection first, with clipboard fallback where needed
+- Keep voice data on your Mac instead of sending it to a remote API
 
-## 🚀 Quick Start
+<table>
+  <tr>
+    <td><strong>Press</strong><br>Hold Fn / Globe or a custom hotkey.</td>
+    <td><strong>Speak</strong><br>Dictate in Chinese, English, or both.</td>
+    <td><strong>Keep going</strong><br>Text lands in the app you are already using.</td>
+  </tr>
+</table>
+
+## Use Cases
+
+- Write emails, notes, tickets, and documents without switching away from the keyboard
+- Capture ideas quickly while they are still in your head
+- Dictate in Chinese, English, or mixed language with one workflow
+- Keep sensitive speech local for work, study, or personal use
+
+## Why Choose LocalVoice
+
+Choose LocalVoice if you want a dictation app that is:
+
+- **Instant** - no browser, no account, no cloud round-trip
+- **Private** - transcription stays on your Mac
+- **Focused** - one job, one workflow, one hotkey
+
+| Compared with | LocalVoice advantage |
+| --- | --- |
+| Cloud dictation | No audio round-trip, no waiting on network, no cloud policy risk |
+| Browser-based tools | No tab switching, no web app friction, no login loop |
+| Generic OS dictation | Better bilingual flow and a dedicated menu bar workflow |
+| Heavy AI assistants | Does one job well: turn speech into text, fast |
+| Per-app hotkeys | Works across apps with a single, consistent push-to-talk flow |
+
+## Highlights
+
+| Area | What LocalVoice does |
+| --- | --- |
+| Offline ASR | Runs transcription fully on device with MLX |
+| Privacy | No audio leaves your Mac during dictation |
+| Bilingual input | Supports Chinese, English, and mixed speech |
+| Hotkey workflow | Push-to-talk with Fn / Globe or a custom hotkey |
+| Text injection | Uses Accessibility first, clipboard fallback second |
+| Model management | Download, resume, verify, and delete local models |
+| Local rewriting | Optional cleanup with a local LLM |
+| Menu bar UI | Lightweight status and quick actions |
+
+## Support the Project
+
+If LocalVoice saves you time, there are a few simple ways to support it:
+
+- Star the repository so more people can find it
+- Share it with friends or teammates who need offline dictation on Mac
+- Support development through the Donate tab inside the app
+
+<p align="center">
+  <img src="Sources/Resources/alipay_donate.jpg" width="240" alt="LocalVoice donation QR code for supporting development">
+</p>
+
+Donations help cover development time, model testing, and ongoing maintenance.
+
+## Install
 
 ### Requirements
 
-- macOS 14 (Sonoma) or later
-- Apple Silicon (M1/M2/M3/M4)
-- ~1.5GB free RAM (0.6B model) or ~3.5GB (1.7B model)
-- ~860MB free disk space (0.6B model) or ~1.8GB (1.7B model)
+- macOS 26 or later
+- Apple Silicon only: M1, M2, M3, M4, or newer
+- Microphone, Accessibility, and Input Monitoring permissions
+- About 860 MB disk and 1.5 GB RAM for the 0.6B model
+- About 1.8 GB disk and 3.5 GB RAM for the 1.7B model
 
-### Installation
+### Option 1: Download the DMG
 
-#### Option 1: Download DMG (Recommended)
+Download `LocalVoice.dmg` from the [Releases page](https://github.com/localvoice/local-llm-voice-input/releases), open it, and drag `LocalVoice.app` to `Applications`.
 
-Download `LocalVoice.dmg` from the [Releases page](https://github.com/localvoice/local-llm-voice-input/releases).
-Open the DMG, drag `LocalVoice.app` to `Applications`.
+If macOS blocks first launch:
 
-> ⚠️ **First launch**: macOS Gatekeeper may block the app ("unverified developer").
-> **Right-click the app → Open**, then click "Open" in the dialog. This only needs to be done once.
-> Or run in Terminal: `xattr -dr com.apple.quarantine /Applications/LocalVoice.app`
+```bash
+xattr -dr com.apple.quarantine /Applications/LocalVoice.app
+```
 
-#### Option 2: Clone + Build
+### Option 2: Build from source
 
 ```bash
 git clone https://github.com/localvoice/local-llm-voice-input.git
@@ -56,287 +125,90 @@ cd local-llm-voice-input
 ./build.sh
 ```
 
-Then run from `~/Applications/LocalVoice.app`.
-
-### First Run
+## First Run
 
 1. Launch **LocalVoice** from `~/Applications`
-2. The **Welcome Guide** will walk you through:
-   - **Step 1**: Grant **Microphone** permission
-   - **Step 2**: Grant **Accessibility** permission (for text injection)
-   - **Step 3**: **Download a model** (Qwen3-ASR 0.6B or 1.7B)
-3. Press **Fn/Globe** key → speak → release → text appears
+2. Grant **Microphone**, **Accessibility**, and **Input Monitoring**
+3. Download a model in **Settings → Model**
+4. Hold **Fn / Globe** and speak
+5. Release the key to insert the transcription
 
-### Permissions Required
+## Configuration
 
-| Permission | Purpose |
-|-----------|---------|
-| 🎤 Microphone | Capture your voice for transcription |
-| ♿ Accessibility | Insert text into other applications |
-| ⌨️ Input Monitoring | Listen for the global hotkey |
+### Hotkey
 
-> **Why these permissions?** LocalVoice uses assistive access (AXUIElement) to type recognized speech into your current app — exactly like other dictation tools (TypeLess, MacWhisper, SuperWhisper).
+Open **Settings → General** to change the hotkey used for push-to-talk.
 
-## 🎯 Usage
+### Model
 
-### Basic Dictation
+Open **Settings → Model** to download or switch between:
 
-1. Click the microphone icon in the menu bar
-2. Press and hold **Fn** (or your configured hotkey)
-3. Speak naturally — English, Chinese, or mixed
-4. Release the key → transcription appears in your active app
+| Model | Best for | Size | Notes |
+| --- | --- | --- | --- |
+| Qwen3-ASR 0.6B | Fast dictation | ~860 MB | Lightweight and responsive |
+| Qwen3-ASR 1.7B | Higher accuracy | ~1.8 GB | Recommended for most users |
 
-### Hotkey Configuration
+Download sources:
 
-Open **Settings → General** to customize your hotkey:
+- HuggingFace
+- HF Mirror
+- ModelScope
 
-| Key | Type |
-|-----|------|
-| `Fn` / `Globe` | Default |
-| `Right ⌘` | Right Command |
-| `⌥ Option` | Left or Right Option |
-| `Custom` | Any keycode |
+### Text Input
 
-### Text Injection Methods
+LocalVoice uses Accessibility-based text injection first and falls back to clipboard paste when necessary. This is intended for app compatibility, especially in Electron-based apps.
 
-| Method | Apps | Behavior |
-|--------|------|----------|
-| AXUIElement (auto) | Native macOS apps (Notes, TextEdit, Xcode, etc.) | Zero side effects |
-| Clipboard + Cmd+V | Electron apps (VS Code, Slack, Discord, etc.) | Auto-fallback, restores clipboard |
+### Language
 
-Settings → Text Input to choose your preferred method.
+The UI supports English and Chinese. Speech recognition itself can handle Chinese, English, and mixed-language input.
 
-### Model Download
+## FAQ
 
-Open **Settings → Model** to:
+### Does transcription run offline?
 
-- **Download** your preferred model:
+Yes. Transcription runs locally on your Mac. Only model downloads require network access during setup.
 
-  **Qwen3-ASR 1.7B (推荐)** — High accuracy, ~1.8GB:
-  - 🇺🇸 **HuggingFace** — `mlx-community/Qwen3-ASR-1.7B-5bit`
-  - 🇨🇳 **HF Mirror** — `hf-mirror.com` mirror (China-friendly)
-  - 🇨🇳 **ModelScope** — `modelscope.cn` mirror (China-optimized)
+### Which Macs are supported?
 
-  **Qwen3-ASR 0.6B (快速)** — Lightweight, ~860MB:
-  - 🇺🇸 **HuggingFace** — `mlx-community/Qwen3-ASR-0.6B-6bit`
-  - 🇨🇳 **HF Mirror** — `hf-mirror.com` mirror (China-friendly)
-  - 🇨🇳 **ModelScope** — `modelscope.cn` mirror (China-optimized)
-- **View download progress** with per-file status
-- **Delete** model to free disk space
+The current build target is macOS 26+ on Apple Silicon.
 
-Model storage: `~/Library/Application Support/com.vocaltype.app/models/`
+### Which model should I choose?
 
-### Language Settings
+Use 0.6B if you want the lightest model and fastest response. Use 1.7B if you want the best accuracy for day-to-day dictation.
 
-Open **Settings → General → Language** to switch between:
+### Why does the app need these permissions?
 
-- **System** — Follows macOS language (English or 中文)
-- **English** — Always English
-- **中文** — Always Chinese
+- Microphone: capture audio for transcription
+- Accessibility: insert text into the focused app
+- Input Monitoring: listen for the global hotkey
 
-## 🏗️ Architecture
+## Development
 
-```
-┌─────────────────────────────────────────────────┐
-│                   Menu Bar App                   │
-│              (LSUIElement = true)                │
-├─────────────────────────────────────────────────┤
-│                                                   │
-│  ┌──────────┐    ┌──────────────┐                │
-│  │Hotkey    │───▶│ AudioRecorder │──▶ 16kHz WAV  │
-│  │Monitor   │    │ (AVAudioEng.) │                │
-│  └──────────┘    └──────┬───────┘                │
-│                         │                        │
-│                         ▼                        │
-│  ┌──────────────────────────────┐                │
-│  │   TranscriptionService       │                │
-│  │   ┌────────────────────┐    │                │
-│  │   │  MLX (Qwen3-ASR)   │    │                │
-│  │   └────────────────────┘    │                │
-│  └──────────┬───────────────────┘                │
-│             │                                    │
-│             ▼                                    │
-│  ┌──────────────────────────────┐                │
-│  │      TextInjector            │                │
-│  │  ┌──────────┐ ┌───────────┐ │                │
-│  │  │AXUIElement│ │ Clipboard │ │                │
-│  │  │ (native) │ │ (Electron)│ │                │
-│  │  └──────────┘ └───────────┘ │                │
-│  └──────────────────────────────┘                │
-│                                                   │
-│  ┌──────────────────────────────┐                │
-│  │   ModelDownloadService       │                │
-│  │  HF / HF Mirror / ModelScope │                │
-│  └──────────────────────────────┘                │
-└─────────────────────────────────────────────────┘
-```
-
-### Stack
-
-| Layer | Technology |
-|-------|-----------|
-| **UI Framework** | SwiftUI 5 (macOS 14+) |
-| **Language** | Swift 6 |
-| **STT Backend** | MLX + Qwen3-ASR 0.6B/1.7B (0.6B: 6-bit, 1.7B: 5-bit quantized) |
-| **Audio Capture** | AVAudioEngine (16kHz, 16-bit PCM) |
-| **Text Injection** | AXUIElement + Clipboard (NSPasteboard) |
-| **Hotkey** | CGEventTap (HID-level) |
-| **Package Manager** | Swift Package Manager |
-
-## 📦 Project Structure
-
-```
-local-llm-voice-input/
-├── Sources/
-│   ├── VocalTypeApp.swift          # @main — app lifecycle
-│   ├── UIState.swift               # State model + engine coordinator
-│   ├── MenuBarView.swift           # Menu bar dropdown
-│   ├── SettingsView.swift          # Settings (4 tabs)
-│   ├── WelcomeView.swift           # Welcome/onboarding guide
-│   ├── PermissionsView.swift       # Permission checker window
-│   ├── RecordingOverlayView.swift  # Recording floating overlay
-│   ├── PermissionChecker.swift     # AVFoundation / AX / CG permission check
-│   ├── HotkeyMonitor.swift         # CGEventTap hotkey listener
-│   ├── AudioRecorder.swift         # 16kHz WAV recorder
-│   ├── TranscriptionService.swift  # STT protocol + orchestration
-│   ├── MLXTranscription.swift      # MLX transcription runner
-│   ├── TextInjector.swift          # AXUIElement + clipboard fallback
-│   ├── TextRewriter.swift          # AI text rewriting
-│   ├── Logger.swift                # Logging utility
-│   ├── ModelDownloadService.swift  # Multi-source model download engine
-│   ├── LocaleService.swift         # Bilingual (EN/ZH) strings
-│   ├── MLXASR/                     # MLX ASR engine
-│   │   ├── Qwen3ASRConfig.swift
-│   │   ├── Qwen3ASRModel.swift
-│   │   ├── Qwen3ASRTokenizer.swift
-│   │   ├── Qwen3ASRSTT.swift
-│   │   ├── Qwen3ASRAudio.swift
-│   │   └── Layers/
-│   │       ├── AudioEncoder.swift
-│   │       └── TextDecoder.swift
-│   ├── CLI/                        # CLI interface
-│   │   └── main.swift
-│   ├── VocalType.entitlements
-│   ├── Info.plist
-│   └── Assets.xcassets/            # App icons
-├── Tests/
-│   └── VocalTypeTests/
-│       ├── AudioRecorderTests.swift
-│       ├── HotkeyMonitorTests.swift
-│       ├── ModelDownloadServiceLogicTests.swift
-│       ├── PermissionCheckerTests.swift
-│       ├── RecordingStateTests.swift
-│       ├── TestUtilities.swift
-│       ├── TextInjectorTests.swift
-│       └── TranscriptionIntegrationTests.swift
-├── Package.swift                   # SPM manifest
-├── build.sh                        # Build + install script
-├── test.sh
-├── test_transcribe.sh
-├── scripts/
-│   └── test_download.sh
-├── .gitignore
-└── README.md
-```
-
-## 🌐 Download Sources
-
-### Model Sources Comparison
-
-| Source | Region | Model | Size | Speed |
-|--------|--------|-------|------|-------|
-| [HuggingFace](https://huggingface.co/mlx-community/Qwen3-ASR-1.7B-5bit) | Global | 1.7B 5-bit | ~1.8 GB | ⭐⭐⭐ |
-| [HF Mirror](https://hf-mirror.com/mlx-community/Qwen3-ASR-1.7B-5bit) | China-optimized | 1.7B 5-bit | ~1.8 GB | ⭐⭐⭐⭐ |
-| [ModelScope](https://modelscope.cn/models/mlx-community/Qwen3-ASR-1.7B-5bit) | China-optimized | 1.7B 5-bit | ~1.8 GB | ⭐⭐⭐⭐⭐ |
-| [HuggingFace](https://huggingface.co/mlx-community/Qwen3-ASR-0.6B-6bit) | Global | 0.6B 6-bit | ~860 MB | ⭐⭐⭐⭐⭐ |
-| [HF Mirror](https://hf-mirror.com/mlx-community/Qwen3-ASR-0.6B-6bit) | China-optimized | 0.6B 6-bit | ~860 MB | ⭐⭐⭐⭐⭐ |
-| [ModelScope](https://modelscope.cn/models/mlx-community/Qwen3-ASR-0.6B-6bit) | China-optimized | 0.6B 6-bit | ~860 MB | ⭐⭐⭐⭐⭐ |
-
-### Which source should I use?
-
-- **Global users**: HuggingFace (direct, most reliable)
-- **Mainland China**: ModelScope (fastest, CDN-optimized) or HF Mirror
-- **Fallback**: Any source — the app auto-detects the correct API
-
-## ❓ FAQ
-
-### Q: Is this like TypeLess / 闪电说 / MacWhisper?
-**Yes.** LocalVoice follows the same menu-bar-app pattern used by all major dictation tools. It does NOT replace your system input method — it works alongside your existing Chinese/English IME.
-
-### Q: Why not use Apple's built-in dictation?
-Apple's dictation sends audio to Apple servers for processing. LocalVoice processes everything on-device with no network calls.
-
-### Q: What model does it use?
-**Qwen3-ASR-0.6B (快速)** and **Qwen3-ASR-1.7B (推荐)** — the 0.6B is 6-bit quantized (~860MB), the 1.7B is 5-bit quantized (~1.8GB). Both support 30+ languages including Chinese + English mixed recognition.
-
-### Q: Can I use a different model?
-Pre-configured for Qwen3-ASR 0.6B (6-bit) and 1.7B (5-bit). The architecture supports multiple engines — see the `STTEngine` enum in `UIState.swift` for future expansion.
-
-### Q: How much RAM does it use?
-~1.5 GB for 0.6B model or ~3.5 GB for 1.7B model (the model loads into memory and stays resident).
-
-### Q: Does it work without internet?
-**Yes.** Once the model is downloaded, 100% offline. No network connectivity required.
-
-### Q: How is text inserted into apps?
-Two methods:
-1. **AXUIElement** (primary, zero side effects) — works with native macOS apps
-2. **Clipboard + Cmd+V** (automatic fallback) — clipboard snapshot is saved and restored
-
-### Q: Does it work with Electron apps (VS Code, Slack, WeChat)?
-**Yes.** The clipboard fallback handles all Electron/WebView apps where AXUIElement doesn't work.
-
-### Q: How do I uninstall?
-```bash
-rm -rf ~/Applications/LocalVoice.app
-rm -rf ~/Library/Application\ Support/com.vocaltype.app/
-defaults delete com.vocaltype.app
-```
-
-## 🔧 Development
-
-### Build Requirements
-
-- Xcode 16+ or Xcode Command Line Tools
-- Swift 6.0+
-- macOS 14+ SDK
-
-### Build Commands
+### Common Commands
 
 ```bash
-# Build debug
-swift build
-
-# Build release
-swift build -c release
-
-# Build + install with script
 ./build.sh
-./build.sh --release  # release build
-
-# Clean build
-./build.sh --clean
+./build.sh --build-only
+./build.sh --dmg
+./test.sh
+./test_transcribe.sh
+swift test
 ```
 
-### Architecture Decisions
+### Project Layout
 
-See our [architecture notes](#) for:
-- Why MenuBarExtra instead of InputMethodKit
-- Why push-to-talk instead of always-listening
-- Text injection strategy comparison
-- Model quantization trade-offs
+- `Sources/App` - app lifecycle and shared state
+- `Sources/UI` - menu bar, onboarding, settings, and overlays
+- `Sources/Audio` - recorder and transcription orchestration
+- `Sources/Config` - permissions, locale, logging, and design tokens
+- `Sources/Assets.xcassets` - app icon and asset catalog
+- `Tests/VocalTypeTests` - unit and integration tests
 
-## 📄 License
+## Notes
 
-This project is licensed under the Apache License 2.0 — see the [LICENSE](LICENSE) file for details.
+- Model downloads require network access during setup.
+- The repository currently targets macOS 26+, so earlier versions are not supported.
 
-## 🙏 Acknowledgments
+## License
 
-- [Qwen Team](https://github.com/QwenLM) for Qwen3-ASR
-- [MLX Community](https://github.com/ml-explore) for MLX framework
-- [ModelScope](https://modelscope.cn) and [HuggingFace](https://huggingface.co) for model hosting
-- All open-source voice input tools (TypeLess, MacWhisper, SuperWhisper, VoiceInk) for design inspiration
-
----
-
-**LocalVoice 本地语音** — Your voice, offline, on your Mac. 你的声音，离线，在你的 Mac 上。
+Apache 2.0. See [LICENSE](LICENSE).
